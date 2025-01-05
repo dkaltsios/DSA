@@ -46,7 +46,6 @@ public class HashMap<K, V> implements HashMapInterface<K, V> {
         }
     }
 
-
     @Override
     public V get(K key) throws NullPointerException {
         // Error handling
@@ -124,12 +123,10 @@ public class HashMap<K, V> implements HashMapInterface<K, V> {
         return size;
     }
 
-
     @Override
     public boolean isEmpty() {
         return size == 0;
     }
-
 
     public boolean containsKey(K key) throws NullPointerException {
         // Error handling
@@ -166,4 +163,6 @@ public class HashMap<K, V> implements HashMapInterface<K, V> {
         }
         return sb.toString();
     }
+
+    
 }

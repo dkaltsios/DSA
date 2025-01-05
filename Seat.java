@@ -18,4 +18,11 @@ public class Seat {
     public void setBooked(boolean booked) {
         isBooked = booked;
     }
+
+    public String toString() {
+        return "Seat{" +
+                "\nseatCode='" + seatCode + '\'' +
+                ", \nisBooked=" + isBooked +
+                '}';
+    }
 }

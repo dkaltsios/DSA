@@ -2,15 +2,17 @@ public class Airport {
     private String name;
     private String code;
     private String location;
-    private String country;
-    private int GMT;
+    private float GMT;
+    private float latitude;
+    private float longitude;
 
-    Airport(String name, String code, String location, String country, int GMT) {
+    Airport(String name, String code, String location, float GMT, float latitude, float longitude) {
         this.name = name;
         this.code = code;
         this.location = location;
-        this.country = country;
         this.GMT = GMT;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
     public String getName() {
         return name;
@@ -21,12 +23,16 @@ public class Airport {
     public String getLocation() {
         return location;
     }
-    public String getCountry() {
-        return country;
-    }
-    public int getGMT() {
+    public float getGMT() {
         return GMT;
     }
-
-    
+    public float getLatitude() {
+        return latitude;
+    }
+    public float getLongitude() {
+        return longitude;
+    }
+    public String toString() {
+        return "Airport{ " + name + "\nCode: " + code + "\nLocation: " + location + "\nGMT: " + GMT + "\nLatitude: " + latitude + "\nLongitude: " + longitude + "}";
+    }
 }
