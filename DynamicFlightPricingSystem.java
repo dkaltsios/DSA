@@ -24,6 +24,7 @@ public class DynamicFlightPricingSystem {
         quickSort(theArray, 0, theArray.size() - 1);
     }
 
+    // Quick Sorting algorithm implemented in the labs
     private static int median3(ArrayList<ArrayList<Flight>> theArray, int left, int right) {
 
         // The complexity of this method is O(1)
