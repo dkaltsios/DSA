@@ -70,7 +70,5 @@ public class Flight {
                 '}';
     }
 
-    // dynamicflightpricing() method, use plane.getAvailableSeats() also
-    // departure.getlongitude() and departure.getlatitude() and
-    // arrival.getlongitude() and arrival.getlatitude()
+    // dynamicflightpricing() method, use plane.getAvailableSeats()
 }
