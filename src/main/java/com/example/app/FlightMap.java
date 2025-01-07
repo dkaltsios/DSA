@@ -32,6 +32,11 @@ public class FlightMap {
         flightMap.remove(code);
     }
 
+    @Override
+    public String toString() {
+        return "FlightMap{" + "flightMap=" + flightMap + '}';
+    }
+
     // Using an ArrayList<> that contains an inner ArrayList of Flights that
     // represent the path from Airport a to Airport b
     public ArrayList<ArrayList<Flight>> getFlightsFromAToB(Airport a, Airport b, LocalDate date) {

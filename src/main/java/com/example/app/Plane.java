@@ -3,7 +3,7 @@ package com.example.app;
 public class Plane {
     private final String name;
     private final String code;
-    private final String airline;
+    private final Airline airline;
     private Seat[] seats;
 
     // Using enum since the seat letters are fixed
@@ -11,7 +11,7 @@ public class Plane {
         A, B, C, D, E, F
     }
 
-    public Plane(String name, String code, String airline, int numberOfSeats) {
+    public Plane(String name, String code, Airline airline, int numberOfSeats) {
         this.name = name;
         this.code = code;
         this.airline = airline;
@@ -26,7 +26,7 @@ public class Plane {
         return code;
     }
 
-    public String getAirline() {
+    public Airline getAirline() {
         return airline;
     }
 
