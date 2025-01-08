@@ -10,19 +10,24 @@ public class App {
         String airportFile = "src/main/resources/airports.csv";
         // Load airports into a hashmap
         HashMap<String, Airport> airports = AirportLoader.loadAirports(airportFile);
+        // Load airlines into a hashmap
+        String airlineFile = "src/main/resources/airlines.csv";
+        HashMap<String, Airline> airlines = AirlineLoader.loadAirlines(airlineFile);
         // Flights
         FlightMap flightMap = new FlightMap();
-
+        // User input
         Airport destination;
         Airport origin;
+        Airline airline;
         try ( // Get destination and origin airports
                 Scanner scanner = new Scanner(System.in)) {
             String destination_code = inputAirport(airports, "Enter destination airport: ", scanner);
             destination = airports.get(destination_code);
             String origin_code = inputAirport(airports, "Enter origin airport: ", scanner);
             origin = airports.get(origin_code);
+            airline = inputAirline(airlines, "Enter airline code: ", scanner);
         }
-        Plane plane = new Plane("Boeing 737", "1", new Airline("AA", "American Airlines"), 120);
+        Plane plane = new Plane("Boeing 737", "1", airline, 120);
         Flight flight = new Flight(
                 "AA",
                 123,
@@ -48,5 +53,17 @@ public class App {
             }
         } while (!airports.containsKey(airport));
         return airport;
+    }
+
+    private static Airline inputAirline(HashMap<String, Airline> airlines, String message, Scanner scanner) {
+        System.out.print(message);
+        String airline;
+        do {
+            airline = scanner.nextLine();
+            if (!airlines.containsKey(airline)) {
+                System.out.print("Invalid airline. Please try again: ");
+            }
+        } while (!airlines.containsKey(airline));
+        return airlines.get(airline);
     }
 }

@@ -5,9 +5,10 @@ public class Airline {
     private final String name;
     private int bookings;
 
-    Airline(String code, String name) {
+    Airline(String name, String code, int bookings) {
         this.code = code;
         this.name = name;
+        this.bookings = bookings;
     }
 
     public String getCode() {
