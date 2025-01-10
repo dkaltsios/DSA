@@ -1,8 +1,8 @@
 package com.example.app;
 
 public class Plane {
-    private final String name;
-    private final String code;
+    private final String model;
+    private final String manufacturer;
     private final Airline airline;
     private Seat[] seats;
 
@@ -11,19 +11,19 @@ public class Plane {
         A, B, C, D, E, F
     }
 
-    public Plane(String name, String code, Airline airline, int numberOfSeats) {
-        this.name = name;
-        this.code = code;
+    public Plane(String model, String manufacturer, Airline airline, int numberOfSeats) {
+        this.model = model;
+        this.manufacturer = manufacturer;
         this.airline = airline;
         setSeats(numberOfSeats);
     }
 
-    public String getName() {
-        return name;
+    public String getModel() {
+        return model;
     }
 
-    public String getCode() {
-        return code;
+    public String getManufacturer() {
+        return manufacturer;
     }
 
     public Airline getAirline() {
@@ -67,8 +67,8 @@ public class Plane {
     @Override
     public String toString() {
         return "Plane{" +
-                "\nname='" + name + '\'' +
-                ", \ncode='" + code + '\'' +
+                "\nmanufacturer='" + manufacturer + '\'' +
+                ", \nmodel='" + model + '\'' +
                 ", \nairline='" + airline + '\'' +
                 ", \navailable seats=" + getAvailableSeats() +
                 '}';

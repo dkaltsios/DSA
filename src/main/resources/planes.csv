@@ -1,0 +1,76 @@
+Model,Aircraft Manufacturer,Seats
+A320,Airbus,180
+B773,Boeing,396
+B739,Boeing,204
+A359,Airbus,312
+A333,Airbus,336
+B738,Boeing,186
+B763,Boeing,276
+B788,Boeing,246
+E175,Embraer,78
+A388,Airbus,852
+B752,Boeing,246
+B748,Boeing,366
+B789,Boeing,294
+A332,Airbus,276
+B737,Boeing,156
+B762,Boeing,216
+A321,Airbus,234
+B772,Boeing,312
+CRJ9,Bombardier,76
+B744,Boeing,414
+A346,Airbus,360
+B753,Boeing,246
+A124,Boeing,96
+CRJ7,Bombardier,72
+B777,Boeing,396
+B764,Boeing,276
+A319,Airbus,144
+E170,Embraer,78
+B712,Boeing,126
+A343,Airbus,300
+B736,Boeing,120
+MD90,McDonnell Douglas,156
+DC10,McDonnell Douglas,270
+B734,Boeing,150
+MD83,McDonnell Douglas,156
+B733,Boeing,144
+MD11,McDonnell Douglas,270
+B742,Boeing,420
+MD-11,McDonnell Douglas,270
+E190,Embraer,108
+B735,Boeing,120
+767,Boeing,276
+757,Boeing,246
+747,Boeing,420
+737,Boeing,156
+777,Boeing,396
+A330,Airbus,276
+A380,Airbus,852
+717,Boeing,126
+787,Boeing,294
+A340,Airbus,300
+DC-10,McDonnell Douglas,270
+MD-90,McDonnell Douglas,156
+A310,Airbus,280
+A300,Airbus,270
+MD-80,McDonnell Douglas,156
+PA-31,Piper,12
+EMB,Embraer,54
+SA-227,Fairchild,18
+B-99,Beechcraft,18
+C-99,Beechcraft,18
+DH8,DeHavilland,78
+AN-124,Boeing,96
+764,Boeing,276
+A318,Airbus,126
+DC-8,McDonnell Douglas,270
+MD-88,McDonnell Douglas,156
+SSR-100,Boeing,156
+727,Boeing,174
+M90,McDonnell Douglas,156
+IL-96,Boeing,300
+IL-62,Boeing,186
+MD-87,McDonnell Douglas,132
+DC-9,McDonnell Douglas,126
+L1011,Lockheed,288
