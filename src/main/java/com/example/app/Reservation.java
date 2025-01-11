@@ -2,6 +2,23 @@ package com.example.app;
 
 import java.util.ArrayList;
 
+enum Coefficient {
+    INTERCEPT(15.577426724451641),
+    DISTANCE(0.01785479684723082),
+    STOPS(30.79842499890535),
+    VOLUME(0.01056251732193303);
+
+    private final double value;
+
+    Coefficient(double value) {
+        this.value = value;
+    }
+
+    public double getValue() {
+        return value;
+    }
+}
+
 public final class Reservation {
     private final ArrayList<Flight> flight;
     private final ArrayList<Seat> seat;
@@ -24,6 +41,10 @@ public final class Reservation {
 
     public String getUsername() {
         return username;
+    }
+
+    public int getStops() {
+        return flight.size() - 1;
     }
 
     public ArrayList<Seat> getSeat() {
@@ -50,6 +71,26 @@ public final class Reservation {
             code += f.getCode();
         }
         return code;
+    }
+
+    public double getPrice() {
+        double distance = 0;
+        double airlineVolume = 0;
+        for (Flight f : flight) {
+            // Get distance between airports
+            distance += Flight.getDistance(f.getDepartureAirport(), f.getArrivalAirport());
+            airlineVolume += f.getAirline().getBookings();
+        }
+
+        // Get volume
+        airlineVolume /= flight.size();
+
+        // Calculate price: Price = INTERCEPT + DISTANCE * distance + STOPS * stops +
+        // DEMAND * demand
+        double price = Coefficient.INTERCEPT.getValue() + Coefficient.DISTANCE.getValue() * distance
+                + Coefficient.STOPS.getValue() * getStops() + Coefficient.VOLUME.getValue() * airlineVolume;
+
+        return price;
     }
 
     @Override

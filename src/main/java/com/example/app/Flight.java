@@ -2,23 +2,7 @@ package com.example.app;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-
-enum Coefficient {
-    INTERCEPT(15.577426724451641),
-    DISTANCE(0.01785479684723082),
-    STOPS(30.79842499890535),
-    DEMAND(0.01056251732193303);
-
-    private final double value;
-
-    Coefficient(double value) {
-        this.value = value;
-    }
-
-    public double getValue() {
-        return value;
-    }
-}
+import java.util.ArrayList;
 
 public class Flight {
     private final String code;
@@ -26,28 +10,32 @@ public class Flight {
     private final int number;
     private final Airport departure;
     private final Airport arrival;
+    private final Airline airline;
     private final Plane plane;
     // Time and Date kept in UTC
     private final LocalDateTime departureTime;
     private final LocalDateTime arrivalTime;
     // Stops
-    private final int stops;
 
-    Flight(String code, int number, Airport departure, Airport arrival, Plane plane, LocalDateTime departureTime,
-            LocalDateTime arrivalTime, int stops, String seatCode) {
+    Flight(String code, int number, Airport departure, Airport arrival, Plane plane, Airline airline,
+            LocalDateTime departureTime,
+            LocalDateTime arrivalTime) {
         this.code = code;
         this.number = number;
         this.departure = departure;
         this.arrival = arrival;
         this.plane = plane;
+        this.airline = airline;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
-        this.stops = stops;
-        this.plane.setBooked(seatCode);
     }
 
     public String getCode() {
         return code;
+    }
+
+    public Airline getAirline() {
+        return airline;
     }
 
     public int getNumber() {
@@ -78,27 +66,15 @@ public class Flight {
         return Duration.between(departureTime, arrivalTime).toMinutes();
     }
 
-    @Override
-    public String toString() {
-        return "Flight{" +
-                "\ncode='" + code + '\'' +
-                ", \nnumber=" + number +
-                ", \ndeparture=" + departure +
-                ", \narrival=" + arrival +
-                ", \nplane=" + plane +
-                ", \ndepartureTime=" + departureTime +
-                ", \narrivalTime=" + arrivalTime +
-                '}';
-    }
-
     // Use Haversine formula to calculate distance between two airports
-    private double getDistance() {
+    public static double getDistance(Airport departure, Airport arrival) {
         double lat1 = departure.getLatitude();
         double lon1 = departure.getLongitude();
         double lat2 = arrival.getLatitude();
         double lon2 = arrival.getLongitude();
 
-        // The math module contains a function named toRadians which converts from degrees to radians.
+        // The math module contains a function named toRadians which converts from
+        // degrees to radians.
         lat1 = Math.toRadians(lat1);
         lon1 = Math.toRadians(lon1);
         lat2 = Math.toRadians(lat2);
@@ -117,17 +93,16 @@ public class Flight {
         return (c * r);
     }
 
-    public double getPrice() {
-        // Get distance between airports
-        double distance = getDistance();
-        // Get demand
-        Airline airline = plane.getAirline();
-        double demand = airline.getBookings();
-
-        // Calculate price: Price = INTERCEPT + DISTANCE * distance + STOPS * stops + DEMAND * demand
-        double price = Coefficient.INTERCEPT.getValue() + Coefficient.DISTANCE.getValue() * distance
-                + Coefficient.STOPS.getValue() * stops + Coefficient.DEMAND.getValue() * demand;
-
-        return price;
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "\ncode='" + code + '\'' +
+                ", \nnumber=" + number +
+                ", \ndeparture=" + departure +
+                ", \narrival=" + arrival +
+                ", \nplane=" + plane +
+                ", \ndepartureTime=" + departureTime +
+                ", \narrivalTime=" + arrivalTime +
+                '}';
     }
 }

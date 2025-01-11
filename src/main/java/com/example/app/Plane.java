@@ -3,7 +3,6 @@ package com.example.app;
 public class Plane {
     private final String model;
     private final String manufacturer;
-    private final Airline airline;
     private Seat[] seats;
 
     // Using enum since the seat letters are fixed
@@ -11,10 +10,9 @@ public class Plane {
         A, B, C, D, E, F
     }
 
-    public Plane(String model, String manufacturer, Airline airline, int numberOfSeats) {
+    public Plane(String model, String manufacturer, int numberOfSeats) {
         this.model = model;
         this.manufacturer = manufacturer;
-        this.airline = airline;
         setSeats(numberOfSeats);
     }
 
@@ -26,9 +24,6 @@ public class Plane {
         return manufacturer;
     }
 
-    public Airline getAirline() {
-        return airline;
-    }
 
     public Seat[] getSeats() {
         return seats;
@@ -69,7 +64,6 @@ public class Plane {
         return "Plane{" +
                 "\nmanufacturer='" + manufacturer + '\'' +
                 ", \nmodel='" + model + '\'' +
-                ", \nairline='" + airline + '\'' +
                 ", \navailable seats=" + getAvailableSeats() +
                 '}';
     }

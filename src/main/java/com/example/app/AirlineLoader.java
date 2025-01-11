@@ -19,8 +19,7 @@ public class AirlineLoader {
                 // Airline,IATA,Flights
                 String name = parts[0];
                 String code = parts[1];
-                int flights = Integer.parseInt(parts[2]);
-                airlines.put(code, new Airline(name, code, flights));
+                airlines.put(code, new Airline(name, code));
             }
         } catch (IOException | CsvValidationException e) {
             System.err.println("Error reading file: " + e.getMessage());
