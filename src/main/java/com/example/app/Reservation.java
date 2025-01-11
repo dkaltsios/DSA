@@ -43,10 +43,6 @@ public final class Reservation {
         return username;
     }
 
-    public int getStops() {
-        return flight.size() - 1;
-    }
-
     public ArrayList<Seat> getSeat() {
         return seat;
     }
@@ -71,26 +67,6 @@ public final class Reservation {
             code += f.getCode();
         }
         return code;
-    }
-
-    public double getPrice() {
-        double distance = 0;
-        double airlineVolume = 0;
-        for (Flight f : flight) {
-            // Get distance between airports
-            distance += Flight.getDistance(f.getDepartureAirport(), f.getArrivalAirport());
-            airlineVolume += f.getAirline().getBookings();
-        }
-
-        // Get volume
-        airlineVolume /= flight.size();
-
-        // Calculate price: Price = INTERCEPT + DISTANCE * distance + STOPS * stops +
-        // DEMAND * demand
-        double price = Coefficient.INTERCEPT.getValue() + Coefficient.DISTANCE.getValue() * distance
-                + Coefficient.STOPS.getValue() * getStops() + Coefficient.VOLUME.getValue() * airlineVolume;
-
-        return price;
     }
 
     @Override

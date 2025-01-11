@@ -26,17 +26,16 @@ public class FlightLoader {
             reader.readNext();
             String[] parts;
             while ((parts = reader.readNext()) != null) {
-                // Airline,Plane,Number,IATA,Departure,Arrival
-                Airline airline = airlines.get(parts[0]);
-                Plane plane = planes.get(parts[1]);
-                int number = Integer.parseInt(parts[2]);
-                String code = parts[3];
-                Airport departure = airports.get(parts[4]);
-                Airport arrival = airports.get(parts[5]);
-                LocalDateTime departureTime = LocalDateTime.now();
-                double distance = Flight.getDistance(departure, arrival);
-                int duration = (int) (distance / 880 * 60);
-                LocalDateTime arrivalTime = departureTime.plusMinutes(duration);
+                // Departure,Arrival,Airline,Plane,Departure_Date,Arrival_Date,Number,IATA
+                Airline airline = airlines.get(parts[2]);
+                airline.newBooking();
+                Plane plane = planes.get(parts[3]);
+                int number = Integer.parseInt(parts[6]);
+                String code = parts[7];
+                Airport departure = airports.get(parts[0]);
+                Airport arrival = airports.get(parts[1]);
+                LocalDateTime departureTime = LocalDateTime.parse(parts[4]);
+                LocalDateTime arrivalTime = LocalDateTime.parse(parts[5]);
 
                 flights.addFlight(
                         new Flight(code, number, departure, arrival, plane, airline, departureTime, arrivalTime));

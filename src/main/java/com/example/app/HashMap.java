@@ -1,7 +1,7 @@
 package com.example.app;
 
 public class HashMap<K, V> implements HashMapInterface<K, V> {
-    private final int CAPACITY = 16;
+    private final int CAPACITY = 4096;
     private int size = 0;
     private final Node<K, V> table[];
 

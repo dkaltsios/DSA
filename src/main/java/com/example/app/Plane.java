@@ -1,9 +1,12 @@
 package com.example.app;
 
+import java.util.Random;
+
 public class Plane {
     private final String model;
     private final String manufacturer;
     private Seat[] seats;
+    private final Random random = new Random();
 
     // Using enum since the seat letters are fixed
     private enum SeatLetter {
@@ -14,6 +17,7 @@ public class Plane {
         this.model = model;
         this.manufacturer = manufacturer;
         setSeats(numberOfSeats);
+        makeBooked();
     }
 
     public String getModel() {
@@ -24,9 +28,15 @@ public class Plane {
         return manufacturer;
     }
 
-
     public Seat[] getSeats() {
         return seats;
+    }
+
+    public void makeBooked() {
+        int numberOfSeats = random.nextInt(this.seats.length);
+        for (int i = 0; i < numberOfSeats; i++) {
+            this.seats[i].setBooked(true);
+        }
     }
 
     public int getAvailableSeats() {

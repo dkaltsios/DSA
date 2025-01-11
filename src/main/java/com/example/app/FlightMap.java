@@ -73,7 +73,7 @@ public class FlightMap {
 
     public static void sort(ArrayList<ArrayList<Flight>> flightList) {
         quickSort(flightList, 0, flightList.size() - 1);
-
+        Collections.reverse(flightList);
     }
 
     public static int averageOfConnectingFlights(ArrayList<Flight> flights) {
@@ -123,6 +123,5 @@ public class FlightMap {
 
     private static void swapValues(ArrayList<ArrayList<Flight>> a, int index1, int index2) {
         Collections.swap(a, index1, index2);
-        System.out.println("Swapping " + index1 + " with " + index2);
     }
 }

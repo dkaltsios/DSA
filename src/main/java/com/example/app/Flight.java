@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Flight {
+    private static final double PRICE_INCREASE = 1.1;
+    private static final int MAX_BUCKET_SEATS = 12;
     private final String code;
     // TODO: WE NEED TO ADD BASE SALES PRICE FOR FLIGHT
     private final int number;
@@ -91,6 +93,31 @@ public class Flight {
 
         // calculate the result
         return (c * r);
+    }
+
+    public static double getPrice(ArrayList<Flight> route) {
+        double distance = 0;
+        double airlineVolume = 0;
+        double averageBookedSeats = 0;
+        for (Flight f : route) {
+            // Get distance between airports
+            distance += Flight.getDistance(f.getDepartureAirport(), f.getArrivalAirport());
+            airlineVolume += f.getAirline().getBookings();
+            averageBookedSeats += f.getPlane().getSeats().length - f.getPlane().getAvailableSeats();
+        }
+
+        // Get volume
+        airlineVolume /= route.size();
+
+        // Get average number of seats
+        averageBookedSeats /= route.size();
+
+        // Calculate price: Price = INTERCEPT + DISTANCE * distance + STOPS * stops +
+        // DEMAND * demand
+        double price = Coefficient.INTERCEPT.getValue() + Coefficient.DISTANCE.getValue() * distance
+                + Coefficient.STOPS.getValue() * (route.size() - 1) + Coefficient.VOLUME.getValue() * airlineVolume;
+
+        return (price * Math.pow(PRICE_INCREASE, (averageBookedSeats) / MAX_BUCKET_SEATS));
     }
 
     @Override

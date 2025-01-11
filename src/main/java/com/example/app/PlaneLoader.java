@@ -25,7 +25,8 @@ public class PlaneLoader {
                 // Model,Aircraft Manufacturer,Seats
                 String model = parts[0];
                 String manufacturer = parts[1];
-                int numberOfSeats = Integer.parseInt(parts[2]);
+                // Plane have static number of seats
+                int numberOfSeats = 180;
                 planes.put(model, new Plane(model, manufacturer, numberOfSeats));
             }
         } catch (IOException | CsvValidationException e) {
