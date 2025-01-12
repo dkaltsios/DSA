@@ -1,5 +1,6 @@
 package com.example.app;
 
+// Java library random is used to randomly set some seats as booked
 import java.util.Random;
 
 public class Plane {
@@ -32,6 +33,7 @@ public class Plane {
         return seats;
     }
 
+    // Randomly set some seats as booked for testing purposes
     public void makeBooked() {
         int numberOfSeats = random.nextInt(this.seats.length);
         for (int i = 0; i < numberOfSeats; i++) {

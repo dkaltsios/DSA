@@ -49,7 +49,8 @@ public class Airport {
 
     @Override
     public String toString() {
-        return "Airport{ " + name + "\nCode: " + code + "\nCity: " + city + "\nCountry: " + country + "\nGMT: " + GMT + "\nLatitude: "
+        return "Airport{ " + name + "\nCode: " + code + "\nCity: " + city + "\nCountry: " + country + "\nGMT: " + GMT
+                + "\nLatitude: "
                 + latitude + "\nLongitude: " + longitude + "}";
     }
 }

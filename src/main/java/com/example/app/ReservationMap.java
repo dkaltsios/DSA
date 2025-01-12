@@ -6,16 +6,16 @@ public class ReservationMap {
     public ReservationMap() {
         reservationMap = new HashMap<>();
     }
-    
-    public void addReservation(Reservation reservation) {
+
+    public void add(Reservation reservation) {
         reservationMap.put(reservation.getCode(), reservation);
     }
-    
-    public Reservation getReservation(String reservationId) {
+
+    public Reservation get(String reservationId) {
         return reservationMap.get(reservationId);
     }
-    
-    public void removeReservation(String reservationId) {
+
+    public void remove(String reservationId) {
         reservationMap.remove(reservationId);
     }
 }

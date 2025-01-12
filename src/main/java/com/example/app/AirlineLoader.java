@@ -1,5 +1,6 @@
 package com.example.app;
 
+// This class is used to enter the data for the airlines from a csv file
 // Read the csv
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,6 +20,7 @@ public class AirlineLoader {
                 // Airline,IATA,Flights
                 String name = parts[0];
                 String code = parts[1];
+                // Adding the airline to the airlines map
                 airlines.put(code, new Airline(name, code));
             }
         } catch (IOException | CsvValidationException e) {

@@ -6,6 +6,8 @@ import java.util.Collections;
 
 public class FlightMap {
     HashMap<String, Flight> flightMap;
+    // HashMap That contains an ArrayList of flights that depart from a specific
+    // airport used as key
     HashMap<String, ArrayList<Flight>> departureAirportMap;
 
     FlightMap() {
@@ -13,8 +15,9 @@ public class FlightMap {
         departureAirportMap = new HashMap<>();
     }
 
-    public void addFlight(Flight flight) {
+    public void add(Flight flight) {
         flightMap.put(flight.getCode(), flight);
+        // Update departureAirportMap
         ArrayList<Flight> departure = departureAirportMap.get(flight.getDepartureAirport().getCode());
         if (departure != null) {
             departure.add(flight);
@@ -25,11 +28,11 @@ public class FlightMap {
         }
     }
 
-    public Flight getFlight(String code) {
+    public Flight get(String code) {
         return flightMap.get(code);
     }
 
-    public void removeFlight(String code) {
+    public void remove(String code) {
         flightMap.remove(code);
     }
 
@@ -43,6 +46,7 @@ public class FlightMap {
     public ArrayList<ArrayList<Flight>> getFlightsFromAToB(String departureAirportCode, String arrivalAirportCode,
             LocalDate date) {
         ArrayList<ArrayList<Flight>> pathList = new ArrayList<>();
+        // Iterating though the departureAirportMap to improve efficiency
         for (Flight flight : departureAirportMap.get(departureAirportCode)) {
             if (flight.getPlane().getAvailableSeats() > 0) {
                 if (flight.getArrivalAirport().getCode().equals(arrivalAirportCode)
@@ -86,7 +90,7 @@ public class FlightMap {
         return (int) ((sum / seats) * 100);
     }
 
-    // Quick Sorting algorithm implemented in the labs
+    // Quick Sorting algorithm as explained in the labs
     private static void quickSort(ArrayList<ArrayList<Flight>> theArray, int low, int high) {
         int pivot_index;
         if (low < high) {
@@ -99,10 +103,7 @@ public class FlightMap {
     private static int partition(ArrayList<ArrayList<Flight>> theArray, int low, int high) {
         int left = low;
         int right = high;
-
-        // Exercise 2b
         int pivot = averageOfConnectingFlights(theArray.get(low));
-        // int pivot = median3(theArray, low, high);
         while (left < right) {
             while ((left < high) && (averageOfConnectingFlights(theArray.get(left)) <= pivot)) {
                 left++;
@@ -116,7 +117,6 @@ public class FlightMap {
                 swapValues(theArray, left, right);
             }
         }
-
         swapValues(theArray, low, right);
         return right;
     }

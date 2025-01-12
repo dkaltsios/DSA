@@ -1,5 +1,6 @@
 package com.example.app;
 
+// Using java issued libraries for date/timing operations, arraylists and scanning
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.util.Scanner;
 
 public class App {
     static FlightMap flightMap;
+    static ReservationMap reservationMap;
     static HashMap<String, Plane> planes;
     static HashMap<String, Airport> airports;
     static HashMap<String, Airline> airlines;
@@ -31,6 +33,8 @@ public class App {
         // Load flights into a FlightMap
         String flightFile = "src/main/resources/flights_month_large.csv";
         flightMap = FlightLoader.loadFlights(flightFile, airlines, planes, airports);
+        // Create an empty reservation map
+        reservationMap = new ReservationMap();
         do {
             menu();
         } while (isRunning);
@@ -50,7 +54,7 @@ public class App {
         // Return a list of flights from origin to destination
         ArrayList<ArrayList<Flight>> flightList = flightMap.getFlightsFromAToB(origin, destination,
                 date);
-        if (flightList.size() == 0) {
+        if (flightList.isEmpty()) {
             System.out.println("No flights available");
         } else {
             printFlightList(flightList);
@@ -59,6 +63,7 @@ public class App {
             printPath(flightList.get(flightNum - 1));
             Reservation reservation = new Reservation(flightList.get(flightNum - 1),
                     inputUser("Enter your username (EXIT to quit): "));
+            reservationMap.add(reservation);
             printReservation(reservation);
         }
     }
@@ -77,10 +82,17 @@ public class App {
             System.out.print(flightNum++ + ". ");
             printPath(path);
             System.out.println("Price: " + (int) Flight.getPrice(path));
-            System.out.println("Departure time: "
-                    + DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(path.get(0).getDepartureTime()));
-            System.out.println("Arrival time: " + DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-                    .format(path.get(path.size() - 1).getArrivalTime()));
+            System.out.println("Local departure time: "
+                    + format(
+                            createGMTTime(
+                                    path.get(0).getDepartureTime(),
+                                    path.get(0).getDepartureAirport().getGMT())));
+            System.out.println("Local arrival time: " + format(
+                    createGMTTime(
+                            path.get(path.size() - 1).getArrivalTime(),
+                            path.get(path.size() - 1).getArrivalAirport().getGMT())));
+            System.out.println("Duration: "
+                    + getDuration(path.get(0).getDepartureTime(), path.get(path.size() - 1).getArrivalTime()));
             System.out.println();
         }
     }
@@ -95,11 +107,15 @@ public class App {
         for (int i = 0; i < reservation.getFlight().size(); i++) {
             System.out.println("Flight " + (i + 1) + ": " + reservation.getFlight().get(i).getCode());
             printFlight(reservation.getFlight().get(i));
-            System.out.println("Departure time: "
-                    + DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(reservation.getFlight().get(i)
-                            .getDepartureTime()));
-            System.out.println("Arrival time: " + DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-                    .format(reservation.getFlight().get(i).getArrivalTime()));
+            System.out.println("Local departure time: "
+                    + format(
+                            createGMTTime(
+                                    reservation.getFlight().get(i).getDepartureTime(),
+                                    reservation.getFlight().get(i).getDepartureAirport().getGMT())));
+            System.out.println("Local arrival time: " + format(
+                    createGMTTime(
+                            reservation.getFlight().get(i).getArrivalTime(),
+                            reservation.getFlight().get(i).getArrivalAirport().getGMT())));
             System.out.println("Seat: " + reservation.getSeat().get(i).getSeatCode());
             System.out.println();
         }
@@ -166,4 +182,18 @@ public class App {
         }
         return input;
     }
+
+    private static LocalDateTime createGMTTime(LocalDateTime dateTime, float gmt) {
+        return dateTime
+                .plusMinutes((int) gmt * 60);
+    }
+
+    private static String format(LocalDateTime dateTime) {
+        return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(dateTime);
+    }
+
+    private static long getDuration(LocalDateTime departureTime, LocalDateTime arrivalTime) {
+        return Duration.between(departureTime, arrivalTime).toHours();
+    }
+
 }
