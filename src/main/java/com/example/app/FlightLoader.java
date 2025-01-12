@@ -17,12 +17,14 @@ public class FlightLoader {
     public static FlightMap loadFlights(String file, HashMap<String, Airline> airlines,
             HashMap<String, Plane> planes, HashMap<String, Airport> airports) {
         FlightMap flights = new FlightMap();
+        double duration = 0;
+        int counter = 0;
         // Read and load airlines from file
         try (CSVReader reader = new CSVReader(new FileReader(file))) {
             // Skip the first line
             reader.readNext();
             String[] parts;
-            while ((parts = reader.readNext()) != null) {
+            while ((parts = reader.readNext()) != null && counter < App.counter) {
                 // Departure,Arrival,Airline,Plane,Departure_Date,Arrival_Date,Number,IATA
                 Airport departure = airports.get(parts[0]);
                 Airport arrival = airports.get(parts[1]);
@@ -35,12 +37,31 @@ public class FlightLoader {
                 String code = parts[7];
 
                 // Adding the flight to the flight map
+                long startTime = System.nanoTime();
                 flights.add(
                         new Flight(code, number, departure, arrival, plane, airline, departureTime, arrivalTime));
+                long finishTime = System.nanoTime();
+                duration += finishTime - startTime;
+                counter++;
             }
         } catch (IOException | CsvValidationException e) {
             System.err.println("Error reading file: " + e.getMessage());
         }
+        System.out.println("Counter: " + counter);
+        System.out.println("Duration of loading: " + duration + " nanoseconds");
+        System.out.println("Average duration of one: " + duration / counter + " miliseconds");
+        System.out.println();
+
+        // ! Big 500000
+        // Duration of loading: 1832.0 miliseconds
+        // Average duration of one: 0.0034185354785016666 miliseconds
+        // ! Medium 75000
+        // Duration of loading: 69.0 miliseconds
+        // Average duration of one: 0.0009119505167719596 miliseconds
+        // ! Small 4000
+        // Duration of loading: 3.0 miliseconds
+        // Average duration of one: 0.000725689404934688 miliseconds
+
         return flights;
     }
 }

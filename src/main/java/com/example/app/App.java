@@ -15,6 +15,8 @@ public class App {
     static HashMap<String, Airport> airports;
     static HashMap<String, Airline> airlines;
     static boolean isRunning = true;
+    static int[] arr = { 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000 };
+    static int counter;
 
     static Scanner scanner = new Scanner(System.in);
 
@@ -32,7 +34,11 @@ public class App {
         planes = PlaneLoader.loadPlanes(planeFile);
         // Load flights into a FlightMap
         String flightFile = "src/main/resources/flights_month_large.csv";
-        flightMap = FlightLoader.loadFlights(flightFile, airlines, planes, airports);
+        // flightMap = FlightLoader.loadFlights(flightFile, airlines, planes, airports);
+        for (int i = 0; i < arr.length; i++) {
+            counter = arr[i];
+            FlightLoader.loadFlights(flightFile, airlines, planes, airports);
+        }
         // Create an empty reservation map
         reservationMap = new ReservationMap();
         do {
